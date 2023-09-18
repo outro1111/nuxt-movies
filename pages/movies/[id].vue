@@ -2,10 +2,10 @@
   <div class="detail_movie">
     <h2>{{ movie.attributes.title }}</h2>
     <p>{{ movie.attributes.description }}</p>
-    <img :src="apiURL + movie.attributes.poster.data.attributes.formats.small.url" :alt="movie.attributes.poster.data.attributes.alternativeText">
+    <img :src="movie.attributes.poster.data.attributes.formats.small.url" :alt="movie.attributes.poster.data.attributes.alternativeText">
     <ul>
       <li v-for="image in movie.attributes.image.data" :key="image.id">
-        <img :src="apiURL + image.attributes.formats.small.url" :alt="image.attributes.alternativeText">
+        <img :src="image.attributes.formats.small.url" :alt="image.attributes.alternativeText">
       </li>
     </ul>
     <ul>

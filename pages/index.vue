@@ -8,7 +8,7 @@
         <NuxtLink :to="`/movies/${movie.id}`">
           <h2>{{ movie.attributes.title }}</h2>
           <p>{{ movie.attributes.description }}</p>
-          <img :src="apiURL + movie.attributes.poster.data.attributes.formats.small.url" :alt="movie.attributes.poster.data.attributes.alternativeText">
+          <img :src="movie.attributes.poster.data.attributes.formats.small.url" :alt="movie.attributes.poster.data.attributes.alternativeText">
         </NuxtLink>
         <!-- <ul>
           <li v-for="image in movie.attributes.image.data" :key="image.id">
