@@ -1,7 +1,7 @@
 <template>
   <div class="detail_movie" :style="{ 'background':`url(${ movie.attributes.image.data[1].attributes.url }) no-repeat`}">
     <h2>{{ movie.attributes.title }}</h2>
-    <p>{{ movie.attributes.description }}</p>
+    <p v-html="movie.attributes.description"></p>
     <img :src="movie.attributes.poster.data.attributes.formats.small.url" :alt="movie.attributes.poster.data.attributes.alternativeText">
     <ul>
       <li v-for="image in movie.attributes.image.data" :key="image.id">

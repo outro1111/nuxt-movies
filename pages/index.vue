@@ -1,35 +1,47 @@
 <template>
   <div class="main_movie">
-    <img :src="movies[0].attributes.image.data[0].attributes.url" alt="">
+    <img :src="movies[3].attributes.image.data[0].attributes.url" alt="">
     <div class="feature">
-      <h1>SCREENPLAY NOW!</h1>
+      <h1>Screenplay Now!</h1>
       <strong>{{ movies[0].attributes.title }}</strong>
       <em>{{ movies[0].attributes.titleOriginal }}</em>
-      <p>{{ movies[0].attributes.description }}</p>
+      <p  v-html="movies[0].attributes.description"></p>
     </div>
   </div>
   <div>
-    <p v-if="pending">Loading...</p>
-    <movieList v-else :movies="movies" />
+    <!-- <p v-if="pending">Loading...</p> -->
+    <movieList :movies="movies" />
   </div>
 </template>
 
 <script setup>
 // useFetch
+import qs from "qs"
+
 const runtimeConfig = useRuntimeConfig()
 const apiURL = runtimeConfig.public.apiURL
-const { data: movies, pending, error } = await useFetch(`${apiURL}/api/movies`, {
-  transform: (_movies) => _movies.data,
-  params: {
+const query = qs.stringify(
+  {
     fields: ['title', 'titleOriginal', 'description'],
-    populate: ['poster', 'image'],  
+    populate: ['poster', 'image'],
     sort: 'publishedAt:desc'
+  },
+  {
+    encodeValuesOnly: true,
   }
+)
+const { data: movies, pending, error } = await useLazyFetch(`${apiURL}/api/movies?${query}`, {
+  transform: (_movies) => _movies.data,
+  // params: {
+  //   fields: ['title', 'titleOriginal', 'description'],
+  //   populate: ['poster', 'image'],
+  //   sort: 'publishedAt:desc'
+  // }
 })
 
-definePageMeta({
-  layout: 'main'
-})
+// definePageMeta({
+//   layout: 'main'
+// })
 
 useHead({
   title: 'Movies | Home',
