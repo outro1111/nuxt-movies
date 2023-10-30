@@ -42,8 +42,8 @@ html {position:relative;width:100%;height:100%;overflow-y:scroll}
 .main_movie .feature em {display:block;font-size:min(max(14px, 1em), 24px);color:#fff;}
 .main_movie .feature p {font-size:min(max(14px, 1em), 18px);color:#fff;margin:1.5em auto;text-overflow:ellipsis;overflow:hidden;word-wrap:break-word;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;}
 
-.list {display:flex;flex-wrap:wrap;justify-content:flex-start;align-content:stretch;gap:5%;max-width:1200px;margin:1em auto}
-.list li {flex:0 0 30%;white-space:normal;position:relative;overflow:hidden;padding:2em 0;margin-top:2em;text-align:center}
+.list {display:flex;flex-wrap:wrap;justify-content:flex-start;align-content:stretch;gap:2%;max-width:1200px;margin:1em auto}
+.list li {flex:0 0 32%;white-space:normal;position:relative;overflow:hidden;padding:2em 0;margin-top:2em;text-align:center}
 .list li .thumb {overflow:hidden}
 /* .list li .thumb img {width:;height:20em;object-fit:contain;object-position:50% 50%;vertical-align:top;transform:scale(1.2,1.2);transition:all ease .9s}*/
 

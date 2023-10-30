@@ -6,40 +6,43 @@
 
 <script setup>
 // useFetch
-import qs from "qs";
+import qs from "qs"
 
 const route = useRoute()
-const queryTitle = route.query.title
+const queryTitle = ref(route.query.title)
 const runtimeConfig = useRuntimeConfig()
 const apiURL = runtimeConfig.public.apiURL
-const query = qs.stringify(
-  {
-    fields: ['title', 'titleOriginal', 'description'],
-    populate: ['poster', 'image'],
-    filters: {
-      title: { $contains: queryTitle },
+const query = computed(() => {
+	return qs.stringify(
+    {
+      fields: ['title', 'titleOriginal', 'description'],
+      populate: ['poster', 'image'],
+      filters: {
+        title: { $contains: queryTitle.value },
+      },
+      sort: 'publishedAt:desc'
     },
-    sort: 'publishedAt:desc'
-  },
-  {
-    encodeValuesOnly: true,
-  }
-)
-const { data: movies, pending, error, refresh } = await useFetch(`${apiURL}/api/movies?${query}`, {
+    {
+      encodeValuesOnly: true,
+    }
+  )
+})
+
+const { data: movies, pending, error } = await useAsyncData(() => {
+  return $fetch(`${apiURL}/api/movies?${query.value}`)
+}, {
   transform: (_movies) => _movies.data,
+  watch: [queryTitle]
 })
 
-watch(() => route.fullPath, () => {
-  console.log(route.query.title)
-  refresh()
-})
-// watch(() => route.query, () => refresh(), console.log(route.query))
-// watch(
-//   [ queryTitle ], (to, from) => {
-//     console.log(from, to);
-//   }
-// )
+// const { data: movies, pending, error, refresh, execute } = await useFetch(`${apiURL}/api/movies?${query.value}`, {
+//   transform: (_movies) => _movies.data,
+//   watch: [queryTitle]
+// })
 
+watch(() => route.query.title, () => {
+  queryTitle.value = route.query.title
+})
 
 useHead({
   title: 'Movies | Home',
