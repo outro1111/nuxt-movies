@@ -8,14 +8,13 @@
       <p  v-html="movies[0].attributes.description"></p>
     </div>
   </div>
-  <div>
+  <div class="list">
     <!-- <p v-if="pending">Loading...</p> -->
     <movieList :movies="movies" />
   </div>
 </template>
 
 <script setup>
-// useFetch
 import qs from "qs"
 
 const runtimeConfig = useRuntimeConfig()

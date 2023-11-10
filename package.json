@@ -12,5 +12,8 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/strapi": "^1.9.3",
     "nuxt": "^3.7.0"
+  },
+  "dependencies": {
+    "nuxt-rating": "^0.0.15"
   }
 }

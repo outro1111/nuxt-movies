@@ -1,5 +1,6 @@
 <template>
   <template v-if="movies.length"> 
+    <h2 class="detail_title">Movies</h2>
     <ul class="list">
       <li v-for="movie in movies" :key="movie.id">
         <NuxtLink :to="`/movies/${movie.id}`">
@@ -17,5 +18,5 @@
 </template>
 
 <script setup>
-const { movies } = defineProps(['movies'])
+const { movies } = defineProps(['movies']) // 무비 리스트 불러온 데이터
 </script>

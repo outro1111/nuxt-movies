@@ -1,6 +1,5 @@
 <template>
   <div class="search_area" :class="{ active: isSearch }">
-    <!-- <div class="search_in" :class="{ active: isSearch }"> -->
     <div class="search_in" @click.self="fnIsSearch">
       <div class="search_form">
         <input type="text" class="search_input" ref="searchInput" v-model.trim="movieSearch"  @keyup.enter="fnSearch" placeholder="Search for movies">
@@ -22,16 +21,18 @@
 <script setup>
 import { ref } from 'vue'
 const router = useRouter()
-const movieSearch = ref('')
-const isSearch = ref(false)
-const searchInput = ref(null)
+const movieSearch = ref('') // input에 입력된 값
+const isSearch = ref(false) // 검색 버튼 클릭 시 검색 영역 노출할 값
+const searchInput = ref(null) // 포커스 할 input 엘리먼트
 
+// 검색 버튼 클릭 시 검색 영역 노출
 function fnIsSearch() {
-  isSearch.value = !isSearch.value
-  movieSearch.value = ''
-  searchInput.value.focus()
+  isSearch.value = !isSearch.value // 검색 영역 토글
+  movieSearch.value = '' // 검색 입력 값 초기화
+  searchInput.value.focus() //input 포커스
 }
 
+// 검색 시 라우터 쿼리 push / 검색 영역 비노출
 function fnSearch() {
   if(movieSearch.value !== '') {
     router.push({ path: '/movies', query: { title: movieSearch.value } })

@@ -8,6 +8,7 @@ export default defineNuxtConfig({
       // apiURL: 'http://localhost:1337',
     },
   },
+  modules: ["nuxt-rating"],
   // ssr: true,
   // modules: ['@nuxtjs/strapi'],
   // strapi: {

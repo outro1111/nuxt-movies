@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list">
     <movieList :movies="movies" />
   </div>
 </template>
@@ -18,7 +18,14 @@ const query = computed(() => {
       fields: ['title', 'titleOriginal', 'description'],
       populate: ['poster', 'image'],
       filters: {
-        title: { $contains: queryTitle.value },
+        $or: [
+          {
+            title: { $containsi: queryTitle.value }
+          },
+          {
+            titleOriginal: { $containsi: queryTitle.value }
+          },
+        ],
       },
       sort: 'publishedAt:desc'
     },
@@ -34,11 +41,6 @@ const { data: movies, pending, error } = await useAsyncData(() => {
   transform: (_movies) => _movies.data,
   watch: [queryTitle]
 })
-
-// const { data: movies, pending, error, refresh, execute } = await useFetch(`${apiURL}/api/movies?${query.value}`, {
-//   transform: (_movies) => _movies.data,
-//   watch: [queryTitle]
-// })
 
 watch(() => route.query.title, () => {
   queryTitle.value = route.query.title
