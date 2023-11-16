@@ -1,7 +1,7 @@
 <template>
-  <div class="list">
+  <!-- <div class="list"> -->
     <movieList :movies="movies" />
-  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>

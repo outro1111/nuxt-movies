@@ -1,6 +1,7 @@
 <template>
   <div class="main_movie">
-    <img :src="movies[3].attributes.image.data[0].attributes.url" alt="">
+    <img :src="movies[0].attributes.image.data[1].attributes.url" alt="">
+    <div class="border"><span></span></div>
     <div class="feature">
       <h1>Screenplay Now!</h1>
       <strong>{{ movies[0].attributes.title }}</strong>
@@ -8,10 +9,10 @@
       <p  v-html="movies[0].attributes.description"></p>
     </div>
   </div>
-  <div class="list">
+  <!-- <div class="list"> -->
     <!-- <p v-if="pending">Loading...</p> -->
     <movieList :movies="movies" />
-  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
@@ -38,9 +39,9 @@ const { data: movies, pending, error } = await useLazyFetch(`${apiURL}/api/movie
   // }
 })
 
-// definePageMeta({
-//   layout: 'main'
-// })
+definePageMeta({
+  layout: 'main'
+})
 
 useHead({
   title: 'Movies | Home',

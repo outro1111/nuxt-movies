@@ -1,6 +1,6 @@
 <template>
   <template v-if="movies.length"> 
-    <h2 class="detail_title">Movies</h2>
+    <h2 class="list_title">Movies</h2>
     <ul class="list">
       <li v-for="movie in movies" :key="movie.id">
         <NuxtLink :to="`/movies/${movie.id}`">

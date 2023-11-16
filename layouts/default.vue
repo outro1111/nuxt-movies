@@ -1,8 +1,8 @@
 <template>
   <div id="wrap">
     <header id="header">
+      <h1><NuxtLink to="/">MovieRevue</NuxtLink></h1>
       <nav>
-        <h1><NuxtLink to="/">MovieRevue</NuxtLink></h1>
         <ul>
           <li><NuxtLink to="/movies">List</NuxtLink></li>
           <li><NuxtLink to="/about">About</NuxtLink></li>
