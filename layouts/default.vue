@@ -1,7 +1,7 @@
 <template>
   <div id="wrap">
     <header id="header">
-      <h1><NuxtLink to="/">MovieRevue</NuxtLink></h1>
+      <h1><NuxtLink to="/"><img src="@/assets/images/logo.svg" alt="MovieRevue"></NuxtLink></h1>
       <nav>
         <ul>
           <li><NuxtLink to="/movies">List</NuxtLink></li>

@@ -3,13 +3,13 @@
   <div class="review_write">
     <div class="star_rating">
       <span class="number">{{ reviewRating }}</span>
-      <NuxtRating @rating-selected="logRating" :key="ratingKey" :read-only="false" :ratingValue="reviewRating" :ratingCount="10" ratingSize="min(max(18px, 2.8em), 26px)" />
+      <NuxtRating @rating-selected="logRating" :key="ratingKey" :read-only="false" :ratingValue="reviewRating" :ratingCount="10" activeColor="red" ratingSize="min(max(18px, 2.8em), 26px)" />
     </div>
     <template v-if="isEdit">
-      <button @click="fnReviewPut">리뷰수정</button>
+      <button class="btn primary" @click="fnReviewPut">리뷰수정</button>
     </template>
     <template v-else>
-      <button @click="fnReviewPost">리뷰작성</button>
+      <button class="btn primary" @click="fnReviewPost">리뷰작성</button>
     </template>
   </div>
   <div class="review_list">
@@ -18,13 +18,16 @@
         <li v-for="review in reviews" :key="review.id">
           <p class="rating">{{ review.attributes.rating }}</p>
           <p class="review">{{ review.attributes.content }}</p>
-          <button class="btn_sub" @click="fnGetView(review.id)">수정</button>
-          <button class="btn_sub" @click="fnDelete(review.id)">삭제</button>
+          <p class="review_date">{{ formatDate(review.attributes.publishedAt) }}</p>
+          <div class="btn_right">
+            <button class="btn sub" @click="fnGetView(review.id)">수정</button>
+            <button class="btn sub" @click="fnDelete(review.id)">삭제</button>
+          </div>
         </li>
       </ul>
     </template>
     <template v-else>
-      <p class="nodata">리뷰가 없습니다.</p>
+      <p class="nodata">첫번째 리뷰를 남겨주세요.</p>
     </template>
   </div>
 </template>
@@ -32,6 +35,7 @@
 <script setup>
 import qs from "qs"
 
+const { formatDate } = useFormatDate()
 const {id} = useRoute().params // 라우터 params의 id
 const runtimeConfig = useRuntimeConfig()
 const apiURL = runtimeConfig.public.apiURL
@@ -81,24 +85,26 @@ defineExpose({ // defineExpose를 사용하여 average를 부모 컴포넌트에
   average
 })
 
-
-
 // 리뷰 작성
 const fnReviewPost = async () => {
-  await $fetch(`${apiURL}/api/reviews`, {
-    method: 'POST',
-    body: {
-      "data": {
-        "movie": id,
-        "rating": reviewRating.value,
-        "content": reviewInput.value
+  if(reviewInput.value !== '') {
+    await $fetch(`${apiURL}/api/reviews`, {
+      method: 'POST',
+      body: {
+        "data": {
+          "movie": id,
+          "rating": reviewRating.value,
+          "content": reviewInput.value
+        }
       }
-    }
-  })
-  reviewInput.value = '' // 리뷰 작성 시 textarea 초기화
-  reviewRating.value = 1 // 리뷰 작성 시 rating 값 초기화
-  ratingKey.value += 1 // star rating 키 값으로 새로고침
-  refresh()  // 리뷰 작성 후 리뷰 영역 새로고침
+    })
+    reviewInput.value = '' // 리뷰 작성 시 textarea 초기화
+    reviewRating.value = 1 // 리뷰 작성 시 rating 값 초기화
+    ratingKey.value += 1 // star rating 키 값으로 새로고침
+    refresh()  // 리뷰 작성 후 리뷰 영역 새로고침
+  } else {
+    alert("감상평을 등록해주세요.")
+  }
 }
 
 // 리뷰 삭제

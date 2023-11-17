@@ -6,7 +6,7 @@
         <h2 class="title">{{ movie.attributes.title }}</h2>
         <h2 class="titleOriginal">{{ movie.attributes.titleOriginal }}</h2>
         <p class="genre">{{ movie.attributes.genre }}</p>
-        <p class="openingDate">{{ movie.attributes.openingDate }}</p>
+        <p class="openingDate">{{ formatDate(movie.attributes.openingDate) }}</p>
       </div>
       <p class="average" v-if="average">{{ average }}</p>
     </div>
@@ -52,6 +52,7 @@
 
 <script setup>
 const { movie } = defineProps(['movie']) // 영화 상세 불러온 데이터
+const { formatDate } = useFormatDate()
 const childAverage = ref(null)
 const average = ref(null)
 watchEffect(() => {
