@@ -1,5 +1,5 @@
 <template>
-  <textarea class="review_input" v-model.trim="reviewInput" placeholder="감상평을 등록해주세요."></textarea>
+  <textarea class="review_input" rows="5" v-model.trim="reviewInput" ref="textareaRef" @input="autoHeight(this)" placeholder="감상평을 등록해주세요."></textarea>
   <div class="review_write">
     <div class="star_rating">
       <span class="number">{{ reviewRating }}</span>
@@ -17,8 +17,8 @@
       <ul>
         <li v-for="review in reviews" :key="review.id">
           <p class="rating">{{ review.attributes.rating }}</p>
-          <p class="review">{{ review.attributes.content }}</p>
-          <p class="review_date">{{ formatDate(review.attributes.publishedAt) }}</p>
+          <pre class="review">{{ review.attributes.content }}</pre>
+          <p class="review_date">{{ formatDateHour(review.attributes.publishedAt) }}</p>
           <div class="btn_right">
             <button class="btn sub" @click="fnGetView(review.id)">수정</button>
             <button class="btn sub" @click="fnDelete(review.id)">삭제</button>
@@ -35,7 +35,7 @@
 <script setup>
 import qs from "qs"
 
-const { formatDate } = useFormatDate()
+const { formatDateHour } = useFormatDate()
 const {id} = useRoute().params // 라우터 params의 id
 const runtimeConfig = useRuntimeConfig()
 const apiURL = runtimeConfig.public.apiURL
@@ -154,4 +154,14 @@ const fnReviewPut = async () => {
 function logRating(event) { // 리뷰 점수 클릭 시 노출
   reviewRating.value = event
 }
+
+// 리뷰 글쓰기 textarea 여러 줄
+const textareaRef = ref(null)
+const autoHeight = () => {
+  if (textareaRef.value) {
+    textareaRef.value.style.height = '75px'
+    textareaRef.value.style.height = `${textareaRef.value.scrollHeight + 5}px`
+  }
+}
+watchEffect(autoHeight)
 </script>

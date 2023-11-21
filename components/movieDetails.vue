@@ -8,7 +8,7 @@
         <p class="genre">{{ movie.attributes.genre }}</p>
         <p class="openingDate">{{ formatDate(movie.attributes.openingDate) }}</p>
       </div>
-      <p class="average" v-if="average">{{ average }}</p>
+      <p class="average" v-if="average">{{ (average).toFixed(1) }}</p>
     </div>
 
     <div class="detail_con">
