@@ -17,7 +17,7 @@
       <ul>
         <li v-for="review in reviews" :key="review.id">
           <p class="rating">{{ review.attributes.rating }}</p>
-          <pre class="review">{{ review.attributes.content }}</pre>
+          <p class="review">{{ review.attributes.content }}</p>
           <p class="review_date">{{ formatDateHour(review.attributes.publishedAt) }}</p>
           <div class="btn_right">
             <button class="btn sub" @click="fnGetView(review.id)">수정</button>

@@ -34,7 +34,7 @@
         <h2 class="detail_title">Photos</h2>
         <ul>
           <li v-for="image in movie.attributes.image.data" :key="image.id">
-            <img :src="image.attributes.formats.small.url" :alt="image.attributes.alternativeText">
+            <img :src="image.attributes.formats.medium.url" :alt="image.attributes.alternativeText">
           </li>
         </ul>
       </div>

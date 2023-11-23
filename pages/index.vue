@@ -24,7 +24,11 @@ const query = qs.stringify(
   {
     fields: ['title', 'titleOriginal', 'description'],
     populate: ['poster', 'image'],
-    sort: 'publishedAt:desc'
+    sort: 'publishedAt:desc',
+    pagination: {
+      page: 1,
+      pageSize: 6,
+    },
   },
   {
     encodeValuesOnly: true,
