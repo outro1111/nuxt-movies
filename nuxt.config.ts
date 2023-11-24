@@ -9,6 +9,13 @@ export default defineNuxtConfig({
     },
   },
   modules: ["nuxt-rating"],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'kr',
+      }
+    }
+  },
   // ssr: true,
   // modules: ['@nuxtjs/strapi'],
   // strapi: {

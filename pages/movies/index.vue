@@ -47,9 +47,9 @@ watch(() => route.query.title, () => {
 })
 
 useHead({
-  title: 'Movies | Home',
+  title: '영화 리스트 | MovieRevue',
   meta: [
-    { name: 'description', content: 'Movies Homepage' }
+    { name: 'description', content: 'MovieRevue 영화 리스트' }
   ]
 })
 </script>

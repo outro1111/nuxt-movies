@@ -1,5 +1,5 @@
 <template>
-  <h2 class="list_title">Movies</h2>
+  <h2 class="sub_title">Movies</h2>
   <template v-if="movies.length"> 
     <ul class="list">
       <li v-for="movie in movies" :key="movie.id">

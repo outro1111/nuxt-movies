@@ -17,7 +17,7 @@
         <p v-html="movie.attributes.description"></p>
       </div>
       <div class="poster">
-        <img :src="movie.attributes.poster.data.attributes.formats.small.url" :alt="movie.attributes.poster.data.attributes.alternativeText">
+        <img :src="movie.attributes.poster.data.attributes.formats.medium.url" :alt="movie.attributes.poster.data.attributes.alternativeText">
       </div>
 
       <div class="cast">

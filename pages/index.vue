@@ -48,9 +48,9 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Movies | Home',
+  title: 'Home | MovieRevue',
   meta: [
-    { name: 'description', content: 'Movies Homepage' }
+    { name: 'description', content: 'MovieRevue Homepage' }
   ]
 })
 </script>

@@ -25,9 +25,9 @@ const { data: movie, pending, error } = await useAsyncData('movie', () => {
 })
 
 useHead({
-  title: `Movies | ${toRaw(movie.value).attributes.title}`,
+  title: `${toRaw(movie.value).attributes.title} | MovieRevue`,
   meta: [
-    { name: 'description', content: `Movies ${toRaw(movie.value).attributes.description}` }
+    { name: 'description', content: `MovieRevue ${toRaw(movie.value).attributes.description}` }
   ]
 })
 </script>

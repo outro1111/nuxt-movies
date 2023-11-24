@@ -13,7 +13,7 @@ const {data: aboutUs, pending, error} = await useFetch(apiURL + '/api/about-us',
 })
 
 useHead({
-  title: 'Movies | About Us',
+  title: 'About Us | MovieRevue',
   meta: [
     { name: 'description', content: 'Movies About Us' }
   ]
