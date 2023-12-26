@@ -14,6 +14,11 @@
     "nuxt": "^3.7.0"
   },
   "dependencies": {
-    "nuxt-rating": "^0.0.15"
+    "@pinia/nuxt": "^0.5.1",
+    "nuxt-rating": "^0.0.15",
+    "pinia": "^2.1.7"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

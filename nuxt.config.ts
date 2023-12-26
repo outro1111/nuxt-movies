@@ -8,7 +8,10 @@ export default defineNuxtConfig({
       // apiURL: 'http://localhost:1337',
     },
   },
-  modules: ["nuxt-rating"],
+  modules: [
+    '@pinia/nuxt',
+    'nuxt-rating'
+  ],
   app: {
     head: {
       htmlAttrs: {
@@ -16,9 +19,4 @@ export default defineNuxtConfig({
       }
     }
   },
-  // ssr: true,
-  // modules: ['@nuxtjs/strapi'],
-  // strapi: {
-  //   url: 'http://localhost:1337'
-  // },
 })
