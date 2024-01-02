@@ -16,11 +16,12 @@ export const useLoginStore = defineStore('loginStore', () => {
     try {
       const res = await $fetch(`${apiURL}/api/auth/local/register`, {
         method: 'POST',
-        body: {
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           "username": signupObj.name,
           "email": signupObj.email,
           "password": signupObj.password
-        }
+        })
       })
       console.log('User profile', res.user, 'User token', res.jwt)
       isSignup.value = false // 회원가입 폼 비노출
@@ -29,20 +30,28 @@ export const useLoginStore = defineStore('loginStore', () => {
     }
   }
 
+  // const expires = 60 * 60 * 24 * 7 // 7일간 유지 
+  // const accessToken = ref(useCookie('accessToken', { maxAge: expires }))
+  // const accessUser = ref(useCookie('accessUser', { maxAge: expires }))
+  const accessToken = ref(useCookie('accessToken'))
+  const accessUser = ref(useCookie('accessUser'))
   const login = async (loginObj) => {
     try {
       const res = await $fetch(`${apiURL}/api/auth/local`, {
         method: 'POST',
-        body: {
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           "identifier": loginObj.email,
           "password": loginObj.password
-        }
+        })
       })
-      let token = res.jwt // 받아온 데이터 중 accessToken을 token에 할당
-      let userId = res.user.id // 받아온 데이터 중 회원 id를 userId에 할당
-      localStorage.setItem("access_token", token) // access_token 이라는 이름 설정 후 toke을 로컬스토리지에 저장
-      localStorage.setItem("access_id", userId)
-      getUserInfo()
+      const tokenJwt = ref(res.jwt) // 받아온 데이터 중 accessToken을 token에 할당
+      const userInfo = ref(res.user) // 받아온 데이터 중 회원 정보를 userId에 할당
+      accessToken.value = tokenJwt.value
+      accessUser.value = userInfo.value
+      userInfo.value = res // 유저정보 (이름, 이메일) userInfo에 할당
+      isLogin.value = true // 로그인 상태 true
+      isLoginError.value = false // 로그인 에러 상태  false
       router.back() // 로그인 후 이전 컴퍼넌트로 이동
     } catch(error) {
       isLogin.value = false // 이메일, 패스워드가 틀릴 시 로그인 상태 false
@@ -51,39 +60,15 @@ export const useLoginStore = defineStore('loginStore', () => {
     }
   }
 
-  const getUserInfo = async () => { // 로그인 혹은 새로고침 시 로컬스토로지 저장된 토근을 헤더에 포함시켜 유저 정보를 요청
-    let token = localStorage.getItem("access_token") // 로컬스토리지 저장된 토큰 반환
-    let userId = localStorage.getItem("access_id") // 로컬스토리지 저장된 id 반환
-    let config = { // config header에 access-token이라는 이름으로 토큰을 포함
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        // "access-token": token,
-        Authorization: `Bearer ${token}`,
-      }
-    }
-    if(token !== null && userId !== null) { // 토큰이 없거나 유저 id가 없을 시 (로그인 안된 상태)
-      try {
-        const res = await $fetch(`${apiURL}/api/users/${userId}`, config)
-        userInfo.value =res // 유저정보 (이름, 이메일) userInfo에 할당
-        isLogin.value = true // 로그인 상태 true
-        isLoginError.value = false // 로그인 에러 상태  false
-        console.log('User profile', 'User token', res.jwt, res, isLogin.value)
-      } catch(error) {
-        console.log('에러', error)
-      }
-    }
-  }
-
   const logout = () => {
-    console.log('logout', isLogin.value)
-    localStorage.clear() // 로컬스토리지의 정보 (토근, 아이디) 삭제
+    accessToken.value = null // 로컬스토리지의 정보 (토근, 아이디) 삭제
+    accessUser.value = null // 로컬스토리지의 정보 (토근, 아이디) 삭제
     isLogin.value = false // 로그인 상태 false
     isLoginError.value = false // 로그인 에러 상태 false
-    userInfo.value.username = null // userInfo 데이터 null로 설정
-    userInfo.value.email = null // userInfo 데이터 null로 설정
+    userInfo.value = null
     router.push('/') // 로그인 후 홈으로 이동
+    console.log('logout', isLogin.value, userInfo.value)
   }
 
-  return { signup, login, logout, getUserInfo, isSignup, isLogin, isLoginError, userInfo }
+  return { signup, login, logout, isSignup, isLogin, isLoginError, userInfo }
 })
