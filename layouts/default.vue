@@ -12,8 +12,8 @@
         <movieSearch />
         <template v-if="loginStore.isLogin">
           <div class="login_area"><button class="btn_login"><span class="sr_only">로그인 정보</span></button></div>
-          {{ username }}
-          {{ email }}
+          {{ loginStore.userInfo.username }}
+          {{ loginStore.userInfo.email }}
           <button @click="loginStore.logout" class="btnLogout">Logout</button> <!-- 로그아웃 버튼 -->
         </template>
         <template v-else>
@@ -31,6 +31,4 @@
 <script setup>
 import { useLoginStore } from '@/stores/login' // login.js 에서 useLoginStore 함수 import
 const loginStore = useLoginStore() // useLoginStore 함수 호출
-const username = ref(loginStore.userInfo.username)
-const email = ref(loginStore.userInfo.email)
 </script>

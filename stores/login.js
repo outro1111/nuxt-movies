@@ -47,9 +47,12 @@ export const useLoginStore = defineStore('loginStore', () => {
       })
       const tokenJwt = ref(res.jwt) // 받아온 데이터 중 accessToken을 token에 할당
       const userInfo = ref(res.user) // 받아온 데이터 중 회원 정보를 userId에 할당
+      
       accessToken.value = tokenJwt.value
       accessUser.value = userInfo.value
-      userInfo.value = res // 유저정보 (이름, 이메일) userInfo에 할당
+      // localStorage.setItem("access_token", token) // access_token 이라는 이름 설정 후 toke을 로컬스토리지에 저장
+      // localStorage.setItem("access_id", userId)
+      userInfo.value = res.user // 유저정보 (이름, 이메일) userInfo에 할당
       isLogin.value = true // 로그인 상태 true
       isLoginError.value = false // 로그인 에러 상태  false
       router.back() // 로그인 후 이전 컴퍼넌트로 이동
@@ -65,7 +68,8 @@ export const useLoginStore = defineStore('loginStore', () => {
     accessUser.value = null // 로컬스토리지의 정보 (토근, 아이디) 삭제
     isLogin.value = false // 로그인 상태 false
     isLoginError.value = false // 로그인 에러 상태 false
-    userInfo.value = null
+    userInfo.value.username = null
+    userInfo.value.email = null
     router.push('/') // 로그인 후 홈으로 이동
     console.log('logout', isLogin.value, userInfo.value)
   }
