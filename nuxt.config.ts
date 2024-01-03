@@ -19,8 +19,9 @@ export default defineNuxtConfig({
       }
     }
   },
-  routeRules: {
-    // Homepage pre-rendered at build time
-    '/**': { prerender: true },
+  nitro: {
+    prerender: {
+      routes: ['/', '/movies', '/about']
+    }
   }
 })
