@@ -1,5 +1,10 @@
 <template>
-  <textarea class="review_input" rows="5" v-model.trim="reviewInput" ref="textareaRef" @input="autoHeight(this)" placeholder="감상평을 등록해주세요."></textarea>
+  <template v-if="isLogin">
+    <textarea class="review_input" rows="5" v-model.trim="reviewInput" ref="textareaRef" @input="autoHeight(this)" placeholder="감상평을 등록해주세요."></textarea>
+  </template>
+  <template v-else>
+    <NuxtLink to="/user/login" class="review_login" @click="">로그인 후 리뷰를 입력해주세요.</NuxtLink>
+  </template>
   <div class="review_write">
     <div class="star_rating">
       <span class="number">{{ reviewRating }}</span>
@@ -17,9 +22,10 @@
       <ul>
         <li v-for="review in reviews" :key="review.id">
           <p class="rating">{{ review.attributes.rating }}</p>
+          <p class="name">{{ review.attributes.user.data.attributes.username }}</p>
           <p class="review">{{ review.attributes.content }}</p>
           <p class="review_date">{{ formatDateHour(review.attributes.publishedAt) }}</p>
-          <div class="btn_right">
+          <div class="btn_right" v-if="review.attributes.user.data.id === currentUser">
             <button class="btn sub" @click="fnGetView(review.id)">수정</button>
             <button class="btn sub" @click="fnDelete(review.id)">삭제</button>
           </div>
@@ -47,7 +53,7 @@ const ratingKey = ref(0) // 수정 star rating 새로고침 컴포넌트 키 값
 const isEdit = ref(false) // 수정 star rating 새로고침 컴포넌트 키 값
 const query = qs.stringify( // 리뷰 데이터 패치 쿼리
   {
-    populate: ['reviews'],
+    populate: ['reviews', 'user'],
     filters: {
       movie: {
         id: {
@@ -90,11 +96,15 @@ const fnReviewPost = async () => {
   if(reviewInput.value !== '') {
     await $fetch(`${apiURL}/api/reviews`, {
       method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
+      },
       body: {
         "data": {
           "movie": id,
           "rating": reviewRating.value,
-          "content": reviewInput.value
+          "content": reviewInput.value,
+          "user": currentUser.value
         }
       }
     })
@@ -112,6 +122,9 @@ const fnDelete = async (id) => {
   if(confirm('삭제하시겠습니까?')) { 
     await $fetch(`${apiURL}/api/reviews/${id}`, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
+      }
     })
   }
   refresh()  // 리뷰 작성 후 리뷰 영역 새로고침
@@ -135,6 +148,9 @@ const fnGetView = async (n) => {
 const fnReviewPut = async () => {
   await $fetch(`${apiURL}/api/reviews/${reviewId.value}`, {
     method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
+    },
     body: {
       "data": {
         "movie": id,
@@ -164,4 +180,22 @@ const autoHeight = () => {
   }
 }
 watchEffect(autoHeight)
+
+// 로그인 시 review 폼 및 본인이 쓴 글 수정 삭제 버튼 노출
+import { useLoginStore } from '@/stores/login' // login.js 에서 useLoginStore 함수 import
+const loginStore = useLoginStore() // useLoginStore 함수 호출
+const isLogin = loginStore.isLogin // 로그인 상태
+const userToken = loginStore.accessToken // 토근 정보 가져오기
+const currentUser = ref(null) // 로그인 한 유저 id값 초기화
+const getUser = async () => { // 유저 id 가져오기 함수
+  const response = await $fetch(`${apiURL}/api/users/me`, { // 로그인한 유저 정보 가져오기
+    headers: {
+      'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
+    }
+  });
+  currentUser.value = response.id // 응답받은 유저 id를 currentUser에 할당
+}
+if(isLogin === true) { // 로그인 한 상태일 때만 유저 id 가져오기
+  getUser()
+}
 </script>

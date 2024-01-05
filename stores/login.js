@@ -74,5 +74,5 @@ export const useLoginStore = defineStore('loginStore', () => {
     console.log('logout', isLogin.value, userInfo.value)
   }
 
-  return { signup, login, logout, isSignup, isLogin, isLoginError, userInfo }
+  return { signup, login, logout, isSignup, isLogin, isLoginError, userInfo, accessToken }
 })

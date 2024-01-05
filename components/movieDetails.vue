@@ -24,6 +24,7 @@
         <h2 class="detail_title">Cast</h2>
         <ul>
           <li v-for="cast in movie.attributes.cast" :key="cast.id">
+            <p class="photo"><img :src="cast.photo.data.attributes.url" :alt="cast.photo.data.attributes.alternativeText"></p>
             <p class="name">{{ cast.name }}</p>
             <p class="role">{{ cast.role }}</p>
           </li>

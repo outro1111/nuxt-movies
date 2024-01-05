@@ -121,7 +121,9 @@ html {position:relative;width:100%;height:100%;overflow-y:scroll}
 .detail_movie .poster {position:absolute;top:1em;left:0;width:18em}
 .detail_movie .poster img {width:90%;}
 .detail_movie .cast ul {display:flex;flex-wrap:wrap;justify-content:flex-start;align-content:stretch;gap:3em;}
-.detail_movie .cast .name {font-size:var(--font-size-title1)}
+.detail_movie .cast li {position:relative;width:120px;text-align:center}
+.detail_movie .cast .photo img {width:100%;height:100%;border-radius:100%}
+.detail_movie .cast .name {font-size:var(--font-size-content2);word-break: keep-all;}
 .detail_movie .cast .role {color:#666;font-size:var(--font-size-small1)}
 .detail_movie .photos ul {display:flex;flex-wrap:wrap;justify-content:flex-start;align-content:stretch;gap:2%;max-width:1400px;}
 .detail_movie .photos li {flex: 0 0 49%;margin-top:1em}
@@ -129,10 +131,12 @@ html {position:relative;width:100%;height:100%;overflow-y:scroll}
 .detail_movie .detail_title {margin:2em 0 .5em;line-height:1.4;font-weight:800;font-size:var(--font-size-title3)}
 .detail_movie .reviews li {position:relative;margin-bottom:2em;padding-left:min(max(44px, 4em), 56px)}
 .detail_movie .reviews li .rating {position:absolute;top:.3em;left:0;margin-bottom:.5em;font-weight:800;font-size:var(--font-size-content2);width:2.1em;height:2.1em;color:#fff;background:red;display:flex;align-items:center;justify-content:center;border-radius:3em}
+.detail_movie .reviews li .name {padding:.3em 0;font-weight:600}
 .detail_movie .reviews li .review {margin-bottom:.8em;font-size:var(--font-size-content1);word-break:keep-all;white-space:pre-wrap;}
 .detail_movie .reviews li .review_date {color:#666;font-size:var(--font-size-small1)}
 .detail_movie .reviews li .btn_right {position:absolute;right:0;bottom:0}
 .detail_movie .reviews li .btn.sub {margin:0 .2em}
+.detail_movie .reviews .review_login {display:flex;align-items:center;justify-content:center;width:100%;height:70px;background:#eee;margin:.5em 0 1em;padding:.6em;font-size:var(--font-size-content1);}
 .detail_movie .reviews .review_input {width:100%;background:#eee;margin-top:.5em;padding:.6em;font-size:var(--font-size-content1);}
 .detail_movie .reviews .review_write {display:flex;justify-content:space-between;align-items:center;margin:.1em 0 2.4em}
 .detail_movie .reviews .star_rating {display:flex;align-items:center}
@@ -150,6 +154,7 @@ html {position:relative;width:100%;height:100%;overflow-y:scroll}
   .detail_movie .detail_con {padding:0 6em}
   .detail_movie .detail_title {margin:1.5em 0 .3em}
   .detail_movie .poster {position: relative;top:auto;left:auto;width:auto;margin-top:8em;text-align:center}
+  .detail_movie .cast li {width:90px}
   .detail_movie .photos ul {flex-wrap:nowrap;flex-direction:column;}
   .detail_movie .photos li {margin-top:2em;}
   .detail_movie .reviews li {margin-bottom:6em}

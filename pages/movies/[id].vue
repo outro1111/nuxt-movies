@@ -11,7 +11,7 @@ const apiURL = runtimeConfig.public.apiURL
 const query = qs.stringify(
   {
     fields: ['title', 'titleOriginal', 'description', 'openingDate', 'genre'],
-    populate: ['poster', 'image', 'cast'],
+    populate: ['poster', 'image', 'cast', 'cast.photo'],
   },
   {
     encodeValuesOnly: true,
