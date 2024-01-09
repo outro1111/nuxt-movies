@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiURL: process.env.API_BASE_URL || 'http://127.0.0.1:1337',
-      // apiURL: 'http://localhost:1337',
+      // apiURL: 'http://127.0.0.1:1337',
     },
   },
   modules: [

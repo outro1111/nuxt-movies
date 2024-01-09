@@ -99,14 +99,14 @@ const fnReviewPost = async () => {
       headers: {
         'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
       },
-      body: {
+      body: JSON.stringify({
         "data": {
           "movie": id,
           "rating": reviewRating.value,
           "content": reviewInput.value,
           "user": currentUser.value
         }
-      }
+      })
     })
     reviewInput.value = '' // 리뷰 작성 시 textarea 초기화
     reviewRating.value = 1 // 리뷰 작성 시 rating 값 초기화
@@ -141,6 +141,7 @@ const fnGetView = async (n) => {
   ratingValue.value = reviewRating.value // 해당 리뷰 점수 star rating에 할당
   ratingKey.value += 1 // star rating 키 값으로 새로고침
   isEdit.value = true // 버튼 리뷰 수정으로 변경
+  textareaRef.value.focus() // textarea에 포커스
   // console.log(`${apiURL}/api/reviews/${reviewId.value}`)
 }
 
@@ -151,13 +152,13 @@ const fnReviewPut = async () => {
     headers: {
       'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
     },
-    body: {
+    body: JSON.stringify({
       "data": {
         "movie": id,
         "rating": reviewRating.value,
         "content": reviewInput.value
       }
-    }
+    })
   })
   reviewInput.value = '' // 리뷰 작성 시 textarea 초기화
   reviewRating.value = 1 // 리뷰 작성 시 rating 값 초기화
