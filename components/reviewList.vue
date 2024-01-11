@@ -174,6 +174,7 @@ const fnReviewPut = async () => {
   ratingKey.value += 1 // star rating 키 값으로 새로고침
   isEdit.value = false // 버튼 리뷰 작성으로 변경
   refresh()  // 리뷰 작성 후 리뷰 영역 새로고침하여 리뷰 데이터 다시 불러오기
+  alert('리뷰가 수정되었습니다.')
 }
 
 // star rating 점수 적용
