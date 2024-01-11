@@ -58,7 +58,7 @@ html {position:relative;width:100%;height:100%;overflow-y:scroll}
 #header .user_layer .btn_logout .icon {display:inline-block;width:14px;height:14px;vertical-align:text-bottom;margin-right:5px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23b62d2b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-power'%3E%3Cpath d='M18.36 6.64a9 9 0 1 1-12.73 0M12 2v10'%3E%3C/path%3E%3C/svg%3E");}
 #header .user_layer.active .user_layer_in {width:auto;height:auto;z-index:10}
 #header .user_layer.active .user_info, #header .user_layer.active .btn_area {z-index:11}
-#header .loginLayerfade-enter-active, #header .loginLayerfade-leave-active {transition:all .5s;}
+#header .loginLayerfade-enter-active, #header .loginLayerfade-leave-active {transition:all .3s;}
 #header .loginLayerfade-enter-from {opacity:0;transform:translateY(5px);}
 #header .loginLayerfade-leave-to {opacity:0;transform:translateY(5px);}
 .main #header {position:absolute;top:0;left:0;right:0;z-index:5}
@@ -139,6 +139,7 @@ html {position:relative;width:100%;height:100%;overflow-y:scroll}
 .detail_movie .poster img {width:90%;}
 .detail_movie .cast ul {display:flex;flex-wrap:wrap;justify-content:flex-start;align-content:stretch;gap:3em;}
 .detail_movie .cast li {position:relative;width:120px;text-align:center}
+.detail_movie .cast .photo {width:120px;height:120px;margin-bottom:6px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.0' viewBox='0 0 144.000000 144.000000' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(0.000000,144.000000) scale(0.100000,-0.100000)' fill='%23ccc' stroke='none'%3E%3Cpath d='M580 1425 c-240 -52 -449 -226 -531 -444 -122 -326 -4 -680 291 -870 150 -97 340 -132 518 -95 338 69 582 364 582 705 0 136 -53 299 -133 411 -167 235 -455 351 -727 293z m198 -449 c104 -54 109 -186 10 -246 -112 -68 -254 63 -194 178 16 30 53 66 76 75 28 10 81 7 108 -7z m90 -331 c68 -29 122 -102 122 -165 0 -45 -26 -38 -34 9 -7 45 -44 94 -90 119 -45 24 -247 24 -292 0 -46 -25 -83 -74 -90 -119 -4 -23 -12 -39 -20 -39 -31 0 -5 101 39 149 43 47 92 61 215 61 79 0 124 -5 150 -15z'/%3E%3Cpath d='M673 945 c-20 -9 -39 -28 -50 -50 -15 -32 -16 -40 -3 -78 27 -76 116 -98 173 -41 52 52 36 143 -29 170 -41 17 -50 17 -91 -1z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center center;background-size:98% 98%;}
 .detail_movie .cast .photo img {width:100%;height:100%;border-radius:100%}
 .detail_movie .cast .name {font-size:var(--font-size-content2);word-break: keep-all;}
 .detail_movie .cast .role {color:#666;font-size:var(--font-size-small1)}
@@ -172,6 +173,7 @@ html {position:relative;width:100%;height:100%;overflow-y:scroll}
   .detail_movie .detail_title {margin:1.5em 0 .3em}
   .detail_movie .poster {position: relative;top:auto;left:auto;width:auto;margin-top:8em;text-align:center}
   .detail_movie .cast li {width:90px}
+  .detail_movie .cast .photo {width:90px;height:90px;}
   .detail_movie .photos ul {flex-wrap:nowrap;flex-direction:column;}
   .detail_movie .photos li {margin-top:2em;}
   .detail_movie .reviews li {margin-bottom:6em}

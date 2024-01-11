@@ -94,26 +94,35 @@ defineExpose({ // defineExpose를 사용하여 average를 부모 컴포넌트에
 // 리뷰 작성
 const fnReviewPost = async () => {
   if(reviewInput.value !== '') {
-    await $fetch(`${apiURL}/api/reviews`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
-      },
-      body: JSON.stringify({
-        "data": {
-          "movie": id,
-          "rating": reviewRating.value,
-          "content": reviewInput.value,
-          "user": currentUser.value
-        }
+    try {
+      const response = await $fetch(`${apiURL}/api/reviews`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
+        },
+        body: JSON.stringify({
+          "data": {
+            "movie": id,
+            "rating": reviewRating.value,
+            "content": reviewInput.value,
+            "user": currentUser.value
+          }
+        })
       })
-    })
-    reviewInput.value = '' // 리뷰 작성 시 textarea 초기화
-    reviewRating.value = 1 // 리뷰 작성 시 rating 값 초기화
-    ratingKey.value += 1 // star rating 키 값으로 새로고침
-    refresh()  // 리뷰 작성 후 리뷰 영역 새로고침
+      if (!response.ok) { // 응답 상태가 성공적이지 않을 때
+        if (response.error === 'already review') { // strapi controllers의 error 메시지 비교
+          alert('리뷰는 한 영화에 한번만 작성 가능합니다.') // 중복체크 에러 메시지가 동일 할때 alert
+        }
+      }
+      reviewInput.value = '' // 리뷰 작성 시 textarea 초기화
+      reviewRating.value = 1 // 리뷰 작성 시 rating 값 초기화
+      ratingKey.value += 1 // star rating 키 값으로 새로고침
+      refresh()  // 리뷰 작성 후 리뷰 영역 새로고침하여 리뷰 데이터 다시 불러오기
+    } catch (error) {
+      alert(error); // 에러 메시지를 alert로 출력
+    }
   } else {
-    alert("감상평을 등록해주세요.")
+    alert('감상평을 등록해주세요.')
   }
 }
 
@@ -127,7 +136,7 @@ const fnDelete = async (id) => {
       }
     })
   }
-  refresh()  // 리뷰 작성 후 리뷰 영역 새로고침
+  refresh()  // 리뷰 작성 후 리뷰 영역 새로고침하여 리뷰 데이터 다시 불러오기
 }
 
 // 리뷰 수정 데이터 가져오기 - 해당 리뷰
@@ -164,7 +173,7 @@ const fnReviewPut = async () => {
   reviewRating.value = 1 // 리뷰 작성 시 rating 값 초기화
   ratingKey.value += 1 // star rating 키 값으로 새로고침
   isEdit.value = false // 버튼 리뷰 작성으로 변경
-  refresh()  // 리뷰 작성 후 리뷰 영역 새로고침
+  refresh()  // 리뷰 작성 후 리뷰 영역 새로고침하여 리뷰 데이터 다시 불러오기
 }
 
 // star rating 점수 적용
