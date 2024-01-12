@@ -29,7 +29,7 @@
     </template>
     <template v-else> <!-- loginStore - isSignup false, 회원가입 완료 일 시 노출 -->
       <div class="success">
-        <p><span><!-- {{ loginStore.userInfo.name }} -->홍길동님</span> 회원가입을 환영합니다.</p>
+        <p><strong class="name">{{ loginStore.userInfo.username }}님</strong> 회원가입을 환영합니다. <span>로그인 후 이용해주세요.</span></p>
         <button class="btn primary" @click="$router.push('/user/login')">로그인으로 이동</button>
       </div>
     </template>

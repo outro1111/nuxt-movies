@@ -34,13 +34,11 @@ const query = qs.stringify(
     encodeValuesOnly: true,
   }
 )
-const { data: movies, pending, error } = await useLazyFetch(`${apiURL}/api/movies?${query}`, {
+
+const { data: movies, pending, error } = await useAsyncData(() => {
+  return $fetch(`${apiURL}/api/movies?${query}`)
+}, {
   transform: (_movies) => _movies.data,
-  // params: {
-  //   fields: ['title', 'titleOriginal', 'description'],
-  //   populate: ['poster', 'image'],
-  //   sort: 'publishedAt:desc'
-  // }
 })
 
 definePageMeta({

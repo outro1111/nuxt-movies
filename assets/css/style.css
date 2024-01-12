@@ -201,8 +201,9 @@ html {position:relative;width:100%;height:100%;overflow-y:scroll}
 .login .alert .icon {color:#fff;margin-right:10px}
 .login .alert .icon svg {width:24px;height:24px;fill:currentColor;}
 .login .success {width:80%;margin:0 auto}
-.login .success p {text-align:center;font-size:var(--font-size-title2);height:auto;padding:2em 0 0;}
-.login .success span {display:block;color:#31a5fa;font-size:var(--font-size-title2);font-weight:600;}
+.login .success p {text-align:center;font-size:var(--font-size-title2);height:auto;padding:4em 0 0;}
+.login .success .name {display:block;color:#31a5fa;font-size:var(--font-size-title2);font-weight:600;}
+.login .success span {display:block;font-size:var(--font-size-content2);padding-top:1em}
 .login .btn_signup {position:relative;text-align:center;padding-top:3em;font-size:var(--font-size-content1)}
 .login .btn_signup a {font-size:var(--font-size-content1);text-decoration:underline;}
 

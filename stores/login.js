@@ -25,6 +25,7 @@ export const useLoginStore = defineStore('loginStore', () => {
       })
       console.log('User profile', res.user, 'User token', res.jwt)
       isSignup.value = false // 회원가입 폼 비노출
+      userInfo.value.username = res.user.username
     } catch(error) {
       alert('정확하지 않은 정보 혹은 이미 등록된 사용자입니다. \n다시 입력하여 가입해주세요.')
     }
@@ -55,7 +56,12 @@ export const useLoginStore = defineStore('loginStore', () => {
       userInfo.value = res.user // 유저정보 (이름, 이메일) userInfo에 할당
       isLogin.value = true // 로그인 상태 true
       isLoginError.value = false // 로그인 에러 상태  false
-      router.back() // 로그인 후 이전 컴퍼넌트로 이동
+      if(isSignup.value) { // 회원가입 직 후 상태가 아니면 true
+        router.back() // 로그인 후 이전 컴퍼넌트로 이동
+      } else { // 회원가입 직 후 상태라면 true
+        router.push('/') // 홈으로 이동
+      }
+      isSignup.value = true // 회원가입 상태 초기화
     } catch(error) {
       isLogin.value = false // 이메일, 패스워드가 틀릴 시 로그인 상태 false
       isLoginError.value = true // 이메일, 패스워드가 틀릴 시 오류 메시지 노출
