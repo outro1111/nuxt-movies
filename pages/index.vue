@@ -34,11 +34,8 @@ const query = qs.stringify(
     encodeValuesOnly: true,
   }
 )
-// const { data: movies, pending, error } = await useLazyFetch(`${apiURL}/api/movies?${query}`, {
-//   transform: (_movies) => _movies.data,
-// })
 
-const { data: movies, pending, error } = await useLazyAsyncData(() => {
+const { data: movies, pending, error } = await useAsyncData(() => {
   return $fetch(`${apiURL}/api/movies?${query}`)
 }, {
   transform: (_movies) => _movies.data,
