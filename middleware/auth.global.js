@@ -6,12 +6,10 @@ export default function () {
   if (token.value && user.value) {
     loginStore.isLogin = true
     loginStore.userInfo = user.value
-    console.log('쿠키있음', loginStore.isLogin, loginStore.userInfo)
   } else {
     loginStore.isLogin = false
     loginStore.userInfo.username = null
     loginStore.userInfo.email = null
     user.value = null
-    console.log('쿠키없음', loginStore.isLogin, loginStore.userInfo)
   }
 }

@@ -35,7 +35,7 @@ const query = computed(() => {
   )
 })
 
-const { data: movies, pending, error } = await useAsyncData(() => {
+const { data: movies, pending, error } = await useLazyAsyncData(() => {
   return $fetch(`${apiURL}/api/movies?${query.value}`)
 }, {
   transform: (_movies) => _movies.data,

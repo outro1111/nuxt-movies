@@ -22,7 +22,7 @@
         <div class="btn_signup">회원이 아니시라면 <NuxtLink to="/user/signup">회원가입</NuxtLink>을 해주세요.</div>
       </template>
     </form>
-    
+
   </div>
 </template>
 
