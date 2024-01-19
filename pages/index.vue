@@ -1,19 +1,15 @@
 <template>
   <div class="main_movie">
-    <template v-if="!pending">
-      <img :src="movies[0].attributes.image.data[1].attributes.url" alt="">
-      <div class="border"><span></span></div>
-      <div class="feature">
-        <h1>Screenplay Now!</h1>
-        <strong>{{ movies[0].attributes.title }}</strong>
-        <em>{{ movies[0].attributes.titleOriginal }}</em>
-        <p  v-html="movies[0].attributes.description"></p>
-      </div>
-    </template>
+    <img :src="movies[0].attributes.image.data[1].attributes.url" alt="">
+    <div class="border"><span></span></div>
+    <div class="feature">
+      <h1>Screenplay Now!</h1>
+      <strong>{{ movies[0].attributes.title }}</strong>
+      <em>{{ movies[0].attributes.titleOriginal }}</em>
+      <p  v-html="movies[0].attributes.description"></p>
+    </div>
   </div>
-  <template v-if="!pending">
-    <movieList :movies="movies" />
-  </template>
+  <movieList :movies="movies" />
 </template>
 
 <script setup>
@@ -36,7 +32,7 @@ const query = qs.stringify(
   }
 )
 
-const { data: movies, pending, error } = await useLazyAsyncData('movies', () => {
+const { data: movies, pending, error } = await useAsyncData('movies', () => {
   return $fetch(`${apiURL}/api/movies?${query}`)
 }, {
   transform: (_movies) => _movies.data,

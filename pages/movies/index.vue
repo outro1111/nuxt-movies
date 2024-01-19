@@ -1,7 +1,5 @@
 <template>
-  <template v-if="!pending">
     <movieList :movies="movies" />
-  </template>
 </template>
 
 <script setup>
@@ -35,7 +33,7 @@ const query = computed(() => {
   )
 })
 
-const { data: movies, pending, error } = await useLazyAsyncData('movies', () => {
+const { data: movies, pending, error } = await useAsyncData('movies', () => {
   return $fetch(`${apiURL}/api/movies?${query.value}`)
 }, {
   transform: (_movies) => _movies.data,

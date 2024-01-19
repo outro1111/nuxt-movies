@@ -1,9 +1,7 @@
 <template>
   <div>
     <h1>About</h1>
-    <template v-if="!pending">
-      <p>{{ aboutUs.attributes.content }}</p>
-    </template>
+    <p>{{ aboutUs.attributes.content }}</p>
   </div>
 </template>
 
@@ -16,7 +14,7 @@
 const runtimeConfig = useRuntimeConfig()
 const apiURL = runtimeConfig.public.apiURL
 
-const { data: aboutUs, pending, error } = await useLazyAsyncData('aboutUs', () => {
+const { data: aboutUs, pending, error } = await useAsyncData(() => {
   return $fetch(`${apiURL}/api/about-us`)
 }, {
   transform: (_aboutUs) => _aboutUs.data,
