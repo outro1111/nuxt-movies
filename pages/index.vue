@@ -1,18 +1,19 @@
 <template>
   <div class="main_movie">
-    <img :src="movies[0].attributes.image.data[1].attributes.url" alt="">
-    <div class="border"><span></span></div>
-    <div class="feature">
-      <h1>Screenplay Now!</h1>
-      <strong>{{ movies[0].attributes.title }}</strong>
-      <em>{{ movies[0].attributes.titleOriginal }}</em>
-      <p  v-html="movies[0].attributes.description"></p>
-    </div>
+    <template v-if="!pending">
+      <img :src="movies[0].attributes.image.data[1].attributes.url" alt="">
+      <div class="border"><span></span></div>
+      <div class="feature">
+        <h1>Screenplay Now!</h1>
+        <strong>{{ movies[0].attributes.title }}</strong>
+        <em>{{ movies[0].attributes.titleOriginal }}</em>
+        <p  v-html="movies[0].attributes.description"></p>
+      </div>
+    </template>
   </div>
-  <!-- <div class="list"> -->
-    <!-- <p v-if="pending">Loading...</p> -->
+  <template v-if="!pending">
     <movieList :movies="movies" />
-  <!-- </div> -->
+  </template>
 </template>
 
 <script setup>

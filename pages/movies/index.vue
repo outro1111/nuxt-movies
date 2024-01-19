@@ -1,7 +1,7 @@
 <template>
-  <!-- <div class="list"> -->
+  <template v-if="!pending">
     <movieList :movies="movies" />
-  <!-- </div> -->
+  </template>
 </template>
 
 <script setup>

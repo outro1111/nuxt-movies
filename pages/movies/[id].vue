@@ -1,5 +1,7 @@
 <template>
-  <movieDetails :movie="movie" />
+  <template v-if="!pending">
+    <movieDetails :movie="movie" />
+  </template>
 </template>
 
 <script setup>
@@ -18,7 +20,7 @@ const query = qs.stringify(
   }
 )
 
-const { data: movie, pending, error } = await useAsyncData('movie', () => {
+const { data: movie, pending, error } = await useLazyAsyncData('movie', () => {
   return $fetch(`${apiURL}/api/movies/${id}?${query}`)
 }, {
   transform: (_movie) => _movie.data,
