@@ -76,6 +76,7 @@ export const useLoginStore = defineStore('loginStore', () => {
     isLoginError.value = false // 로그인 에러 상태 false
     userInfo.value.username = null
     userInfo.value.email = null
+    alert('로그아웃 되었습니다.')
     router.push('/') // 로그인 후 홈으로 이동
     console.log('logout', isLogin.value, userInfo.value)
   }

@@ -18,6 +18,8 @@
       <button class="btn primary" @click="submit">로그인</button> <!-- 스토어의 login 함수 실행 {email: email, password: password} -->
       <template v-if="loginStore.isSignup">
         <div class="btn_signup">회원이 아니시라면 <NuxtLink to="/user/signup">회원가입</NuxtLink>을 해주세요.</div>
+        <!-- <div class="btn_resetpassword">비밀번호를 잊으셨나요? <NuxtLink to="/user/resetPassword">비밀번호 재설정</NuxtLink>을 해주세요.</div>
+        <a class="btn primary" href="http://127.0.0.1:1337/api/connect/google">구글로 시작하기</a> -->
       </template>
     </form>
 

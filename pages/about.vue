@@ -6,9 +6,17 @@
 </template>
 
 <script setup>
-// useFetch
-const apiURL = useRuntimeConfig().public.apiURL
-const {data: aboutUs, pending, error} = await useFetch(apiURL + '/api/about-us', {
+// const apiURL = useRuntimeConfig().public.apiURL
+// const {data: aboutUs, pending, error} = await useFetch(apiURL + '/api/about-us', {
+//   transform: (_aboutUs) => _aboutUs.data,
+// })
+
+const runtimeConfig = useRuntimeConfig()
+const apiURL = runtimeConfig.public.apiURL
+
+const { data: aboutUs, pending, error } = await useAsyncData('aboutUs', () => {
+  return $fetch(`${apiURL}/api/about-us`)
+}, {
   transform: (_aboutUs) => _aboutUs.data,
 })
 

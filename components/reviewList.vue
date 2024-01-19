@@ -3,7 +3,7 @@
     <textarea class="review_input" rows="5" v-model.trim="reviewInput" ref="textareaRef" @input="autoHeight(this)" placeholder="감상평을 등록해주세요."></textarea>
   </template>
   <template v-else>
-    <NuxtLink to="/user/login" class="review_login" @click="">로그인 후 리뷰를 입력해주세요.</NuxtLink>
+    <NuxtLink to="/user/login" class="review_login" @click=""><em>로그인</em> 후 리뷰를 입력해주세요.</NuxtLink>
   </template>
   <div class="review_write">
     <div class="star_rating">
