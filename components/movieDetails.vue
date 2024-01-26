@@ -42,8 +42,6 @@
      
       <div class="reviews">
         <h2 class="detail_title">Reviews</h2>
-        <!-- <reviewList :reviews="reviews" /> -->
-        <!-- <reviewList :reviews="reviews" @modifyId="modifyId" /> -->
         <reviewList ref="childAverage" />
       </div>
     </div>
