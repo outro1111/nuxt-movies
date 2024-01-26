@@ -11,7 +11,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 const router = useRouter()
 const movieSearch = ref('') // input에 입력된 값
 const isSearch = ref(false) // 검색 버튼 클릭 시 검색 영역 노출할 값

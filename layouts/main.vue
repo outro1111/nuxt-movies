@@ -10,8 +10,9 @@
       </nav>
       <div class="util">
         <movieSearch />
+        <darkMode />
         <template v-if="loginStore.isLogin">
-          <div class="login_area login_is"><button class="btn_login" @click="userOpen = !userOpen"><span class="sr_only">로그인 정보</span><span class="arrow"></span></button>
+          <div class="login_area login_is"><button class="btn_login" @click="userOpen = !userOpen"><em><span class="sr_only">로그인 정보</span></em><span class="arrow"></span></button>
             <transition name="loginLayerfade">
               <div class="user_layer" v-if="userOpen" :class="{ active: userOpen }">
                 <div class="user_layer_in" @click.self="userOpen = !userOpen"></div>
@@ -27,7 +28,7 @@
           </div>
         </template>
         <template v-else>
-          <div class="login_area"><NuxtLink to="/user/login" class="btn_login"><span class="sr_only">로그인</span></NuxtLink></div>
+          <div class="login_area"><NuxtLink to="/user/login" class="btn_login"><em><span class="sr_only">로그인</span></em></NuxtLink></div>
         </template>
       </div>
     </header>

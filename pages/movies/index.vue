@@ -1,5 +1,14 @@
 <template>
-    <movieList :movies="movies" />
+  <template v-if="queryTitle">
+    <h2 class="sub_title">Movies</h2>
+  <div class="search_result">
+    <strong>&lsquo;{{ queryTitle }}&rsquo;</strong>에 대한 검색 결과가 <strong>&lsquo;{{ movies.length }}&rsquo;</strong>개 있습니다.
+  </div>
+  </template>
+  <template v-else>
+    <h2 class="sub_title">Movies</h2>
+  </template>
+  <movieList :movies="movies" />
 </template>
 
 <script setup>

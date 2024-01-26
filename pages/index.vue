@@ -9,6 +9,7 @@
       <p  v-html="movies[0].attributes.description"></p>
     </div>
   </div>
+  <h2 class="sub_title">Movies</h2>
   <movieList :movies="movies" />
 </template>
 

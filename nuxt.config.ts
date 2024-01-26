@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
+    '@nuxtjs/color-mode',
     'nuxt-rating'
   ],
   app: {
@@ -19,4 +20,10 @@ export default defineNuxtConfig({
       }
     }
   },
+  routeRules: {
+    // Homepage pre-rendered at build time
+    '/': { prerender: true },
+    // Static page generated on-demand, revalidates in background (ISG)   
+    '/movies/**': { swr: true },    
+  }  
 })
