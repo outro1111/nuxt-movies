@@ -8,7 +8,7 @@
         <p class="genre">{{ movie.attributes.genre }}</p>
         <p class="openingDate">{{ formatDate(movie.attributes.openingDate) }}</p>
       </div>
-      <p class="average" v-if="average">{{ (average).toFixed(1) }}</p>
+      <p class="average" v-if="average">{{ (average).toFixed(1) }}</p> <!-- 리뷰 평균 점수 toFixed로 소수점 처리 -->
     </div>
 
     <div class="detail_con">
@@ -51,12 +51,12 @@
 
 <script setup>
 const { movie } = defineProps(['movie']) // 영화 상세 불러온 데이터
-const { formatDate } = useFormatDate()
-const childAverage = ref(null)
-const average = ref(null)
+const { formatDate } = useFormatDate() // 개봉일 날짜 composables
+const childAverage = ref(null) // reviewList.vue 에서 defineExpose로 넘긴 ref 값 초기화
+const average = ref(null) // 평균 리뷰 점수 초기화
 watchEffect(() => {
   if (childAverage.value) {
-    average.value = childAverage.value.average
+    average.value = childAverage.value.average // 평균 리뷰 점수에 childAverage 값 설정
   }
 })
 </script>

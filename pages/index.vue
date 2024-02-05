@@ -16,6 +16,7 @@
 <script setup>
 import qs from "qs"
 
+const { locale } = useI18n() // 다국어 Cookie Value
 const runtimeConfig = useRuntimeConfig()
 const apiURL = runtimeConfig.public.apiURL
 const query = qs.stringify(
@@ -34,7 +35,7 @@ const query = qs.stringify(
 )
 
 const { data: movies, pending, error } = await useAsyncData('movies', () => {
-  return $fetch(`${apiURL}/api/movies?${query}`)
+  return $fetch(`${apiURL}/api/movies?${query}&locale=${locale.value}`)
 }, {
   transform: (_movies) => _movies.data,
 })

@@ -3,7 +3,7 @@
     <textarea class="review_input" rows="5" v-model.trim="reviewInput" ref="textareaRef" @input="autoHeight(this)" placeholder="감상평을 등록해주세요."></textarea>
   </template>
   <template v-else>
-    <NuxtLink to="/user/login" class="review_login" @click=""><em>로그인</em> 후 리뷰를 입력해주세요.</NuxtLink>
+    <NuxtLink :to="localePath('/user/login')" class="review_login" @click=""><em>로그인</em> 후 리뷰를 입력해주세요.</NuxtLink>
   </template>
   <div class="review_write">
     <div class="star_rating">
@@ -41,8 +41,17 @@
 <script setup>
 import qs from "qs"
 
-const { formatDateHour } = useFormatDate()
-const {id} = useRoute().params // 라우터 params의 id
+const { formatDateHour } = useFormatDate() // 리뷰 작성 날짜시간 composables
+const { locale } = useI18n() // 다국어 Cookie Value
+// const {id} = useRoute().params // 라우터 params의 id
+const movieId = ref(0) // 리뷰 해당 movie의 id 초기화
+const koId = inject('koId') // [id].vue에서 provider로 전달된 id
+const enId = inject('enId') // [id].vue에서 provider로 전달된 enId
+if (locale.value === 'en' && enId) { // 다국어가 영문이라면
+  movieId.value = enId // 불러올 리뷰의 해당 movie의 id값을 국문으로 설정
+} else {
+  movieId.value = koId // 불러올 리뷰의 해당 movie의 id값을 국문으로 설정
+}
 const runtimeConfig = useRuntimeConfig()
 const apiURL = runtimeConfig.public.apiURL
 const reviewInput = ref('') // 리뷰 input 값
@@ -57,7 +66,7 @@ const query = qs.stringify( // 리뷰 데이터 패치 쿼리
     filters: {
       movie: {
         id: {
-          $eq: id
+          $eq: movieId.value // 불러올 리뷰의 해당 movie의 id
         }
       }
     },
@@ -102,7 +111,7 @@ const fnReviewPost = async () => {
         },
         body: JSON.stringify({
           "data": {
-            "movie": id,
+            "movie": movieId.value,
             "rating": reviewRating.value,
             "content": reviewInput.value,
             "user": currentUser.value
@@ -163,7 +172,7 @@ const fnReviewPut = async () => {
     },
     body: JSON.stringify({
       "data": {
-        "movie": id,
+        "movie": movieId.value,
         "rating": reviewRating.value,
         "content": reviewInput.value
       }

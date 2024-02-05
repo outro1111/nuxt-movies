@@ -1,5 +1,5 @@
 <template>
-  <template v-if="queryTitle">
+  <template v-if="queryTitle && movies.length > 0">
     <h2 class="sub_title">Movies</h2>
   <div class="search_result">
     <strong>&lsquo;{{ queryTitle }}&rsquo;</strong>에 대한 검색 결과가 <strong>&lsquo;{{ movies.length }}&rsquo;</strong>개 있습니다.
@@ -15,8 +15,9 @@
 // useFetch
 import qs from "qs"
 
+const { locale } = useI18n() // 다국어 Cookie Value
 const route = useRoute()
-const queryTitle = ref(route.query.title)
+const queryTitle = ref(route.query.title) // url 쿼리 title
 const runtimeConfig = useRuntimeConfig()
 const apiURL = runtimeConfig.public.apiURL
 const query = computed(() => {
@@ -43,7 +44,7 @@ const query = computed(() => {
 })
 
 const { data: movies, pending, error } = await useAsyncData('movies', () => {
-  return $fetch(`${apiURL}/api/movies?${query.value}`)
+  return $fetch(`${apiURL}/api/movies?${query.value}&locale=${locale.value}`)
 }, {
   transform: (_movies) => _movies.data,
   watch: [queryTitle]

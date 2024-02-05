@@ -112,6 +112,7 @@ html.dark-mode #header .btn_darkmode {mask-image:url("data:image/svg+xml,%3Csvg 
 .main #header .login_area.login_is .btn_login .arrow {background:var(--color-fix-white)}
 @media screen and (max-width:800px) {
   #header {padding:3em 2em 1em}
+  #header h1 img {width:5em}
   #header .search_area.active {width:100%;flex:1}
   #header .search_area.active .search_form {width:100%;justify-content:flex-end}
   #header .search_area.active .search_input {width:calc(100% - 3em)}
@@ -147,7 +148,7 @@ html.dark-mode #header .btn_darkmode {mask-image:url("data:image/svg+xml,%3Csvg 
 /* @media screen and (max-width:800px) {
   .main_movie {position:relative;height:88vh}
 } */
-.search_result {position:relative;width:100%;text-align:center;font-size:var(--font-size-content2);margin-top:1em}
+.search_result {position:relative;width:100%;text-align:center;font-size:var(--font-size-content2);margin:1em 0}
 .search_result strong {color:var(--color-blue)}
 .list {display:flex;flex-wrap:wrap;justify-content:flex-start;align-content:stretch;gap:2%;width:100%;max-width:1600px;padding:0 2em;margin:1em auto}
 .list li {flex:0 0 32%;white-space:normal;position:relative;overflow:hidden;padding:2em 0 4em;text-align:center}

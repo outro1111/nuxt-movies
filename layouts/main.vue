@@ -1,14 +1,21 @@
 <template>
   <div id="wrap" class="main">
     <header id="header">
-      <h1><NuxtLink to="/"><img src="@/assets/images/logo_main.svg" alt="MovieRevue"></NuxtLink></h1>
+      <h1>
+        <NuxtLink :to="localePath('/')">
+          <img src="@/assets/images/logo_main.svg" alt="MovieRevue">
+        </NuxtLink>
+      </h1>
       <nav>
         <ul>
-          <li><NuxtLink to="/movies">LIST</NuxtLink></li>
-          <li><NuxtLink to="/about">ABOUT</NuxtLink></li>
+          <li><NuxtLink :to="localePath('/movies')">LIST</NuxtLink></li>
+          <li><NuxtLink :to="localePath('/about')">ABOUT</NuxtLink></li>
         </ul>
       </nav>
       <div class="util">
+        <span>{{ $i18n.locale }}</span>
+        <NuxtLink :to="switchLocalePath('ko')">한국어</NuxtLink>
+        <NuxtLink :to="switchLocalePath('en')">English</NuxtLink>
         <movieSearch />
         <darkMode />
         <template v-if="loginStore.isLogin">
@@ -28,7 +35,7 @@
           </div>
         </template>
         <template v-else>
-          <div class="login_area"><NuxtLink to="/user/login" class="btn_login"><em><span class="sr_only">로그인</span></em></NuxtLink></div>
+          <div class="login_area"><NuxtLink :to="localePath('/user/login')" class="btn_login"><em><span class="sr_only">로그인</span></em></NuxtLink></div>
         </template>
       </div>
     </header>
@@ -43,4 +50,7 @@
 import { useLoginStore } from '@/stores/login' // login.js 에서 useLoginStore 함수 import
 const loginStore = useLoginStore() // useLoginStore 함수 호출
 const userOpen = ref(false) // 로그인 정보 toggle
+
+const localePath = useLocalePath() // 다국어 적용 링크
+const switchLocalePath = useSwitchLocalePath() // 다국어 스위치
 </script>

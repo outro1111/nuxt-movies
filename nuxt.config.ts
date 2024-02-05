@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
+    '@nuxtjs/i18n',
     '@nuxtjs/color-mode',
     'nuxt-rating'
   ],
@@ -20,10 +21,8 @@ export default defineNuxtConfig({
       }
     }
   },
-  routeRules: {
-    // Homepage pre-rendered at build time
-    '/': { prerender: true },
-    // Static page generated on-demand, revalidates in background (ISG)   
-    '/movies/**': { swr: true },    
-  }  
+  i18n: {
+    locales: ['ko', 'en'],
+    defaultLocale: 'ko',
+  }, 
 })
