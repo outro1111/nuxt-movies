@@ -1,9 +1,9 @@
 <template>
   <div class="error">
     <h2>{{ error.statusCode }}</h2>
-    <p>해당 페이지를 찾을 수 없습니다.</p>
+    <p>{{ $t('errorText') }}</p>
     <p>{{ error.statusMessage }}</p>
-    <button class="btn primary" @click="handleClearError">메인으로 이동</button>
+    <button class="btn primary" @click="handleClearError">{{ $t('btnGotoMain') }}</button>
   </div>
 </template>
 

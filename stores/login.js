@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 
 export const useLoginStore = defineStore('loginStore', () => {
-  const router = useRouter()
   const runtimeConfig = useRuntimeConfig()
   const apiURL = runtimeConfig.public.apiURL
   const userInfo = ref({
@@ -48,6 +47,8 @@ export const useLoginStore = defineStore('loginStore', () => {
       })
       const tokenJwt = ref(res.jwt) // 받아온 데이터 중 accessToken을 token에 할당
       const userInfo = ref(res.user) // 받아온 데이터 중 회원 정보를 userId에 할당
+      const router = useRouter()
+      const localePath = useLocalePath() // 다국어 적용 링크
       
       accessToken.value = tokenJwt.value
       accessUser.value = userInfo.value
@@ -59,13 +60,13 @@ export const useLoginStore = defineStore('loginStore', () => {
       if(isSignup.value) { // 회원가입 직 후 상태가 아니면 true
         router.back() // 로그인 후 이전 컴퍼넌트로 이동
       } else { // 회원가입 직 후 상태라면 true
-        router.push('/') // 홈으로 이동
+        router.push({ path: localePath('/') }) // 홈으로 이동
       }
       isSignup.value = true // 회원가입 상태 초기화
     } catch(error) {
       isLogin.value = false // 이메일, 패스워드가 틀릴 시 로그인 상태 false
       isLoginError.value = true // 이메일, 패스워드가 틀릴 시 오류 메시지 노출
-      console.log('에러', error)
+      console.log('error', error)
     }
   }
 
@@ -76,9 +77,6 @@ export const useLoginStore = defineStore('loginStore', () => {
     isLoginError.value = false // 로그인 에러 상태 false
     userInfo.value.username = null
     userInfo.value.email = null
-    alert('로그아웃 되었습니다.')
-    router.push('/') // 로그인 후 홈으로 이동
-    console.log('logout', isLogin.value, userInfo.value)
   }
 
   return { signup, login, logout, isSignup, isLogin, isLoginError, userInfo, accessToken }

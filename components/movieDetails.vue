@@ -8,7 +8,7 @@
         <p class="genre">{{ movie.attributes.genre }}</p>
         <p class="openingDate">{{ formatDate(movie.attributes.openingDate) }}</p>
       </div>
-      <p class="average" v-if="average">{{ (average).toFixed(1) }}</p> <!-- 리뷰 평균 점수 toFixed로 소수점 처리 -->
+      <p class="average" v-if="average"><span>{{ (average).toFixed(1) }}</span></p> <!-- 리뷰 평균 점수 toFixed로 소수점 처리 -->
     </div>
 
     <div class="detail_con">

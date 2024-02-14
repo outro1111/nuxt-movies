@@ -12,7 +12,7 @@
     </ul>
   </template>
   <template v-else>
-    <p class="nodata">검색 결과가 없습니다.</p>
+    <p class="nodata">{{ $t('noData') }}</p>
   </template>
 </template>
 

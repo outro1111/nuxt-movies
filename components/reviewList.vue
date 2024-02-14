@@ -1,20 +1,20 @@
 <template>
   <template v-if="isLogin">
-    <textarea class="review_input" rows="5" v-model.trim="reviewInput" ref="textareaRef" @input="autoHeight(this)" placeholder="감상평을 등록해주세요."></textarea>
+    <textarea class="review_input" rows="5" v-model.trim="reviewInput" ref="textareaRef" @input="autoHeight(this)" :placeholder="$t('reviewGuide6')"></textarea>
   </template>
   <template v-else>
-    <NuxtLink :to="localePath('/user/login')" class="review_login" @click=""><em>로그인</em> 후 리뷰를 입력해주세요.</NuxtLink>
+    <NuxtLink :to="localePath('/user/login')" class="review_login" @click=""><em>{{ $t('loginText') }}</em> {{ $t('reviewLogin') }}</NuxtLink>
   </template>
   <div class="review_write">
     <div class="star_rating">
       <span class="number">{{ reviewRating }}</span>
-      <NuxtRating @rating-selected="logRating" :key="ratingKey" :read-only="false" :ratingValue="reviewRating" :ratingCount="10" activeColor="red" ratingSize="min(max(18px, 2.8em), 26px)" />
+      <NuxtRating @rating-selected="logRating" :key="ratingKey" :read-only="false" :ratingValue="reviewRating" :ratingCount="10" activeColor="red" ratingSize="clamp(18px, 2.8vw, 26px)" />
     </div>
     <template v-if="isEdit">
-      <button class="btn primary" @click="fnReviewPut">리뷰수정</button>
+      <button class="btn primary" @click="fnReviewPut">{{ $t('btnReviewEdit') }}</button>
     </template>
     <template v-else>
-      <button class="btn primary" @click="fnReviewPost">리뷰작성</button>
+      <button class="btn primary" @click="fnReviewPost">{{ $t('btnReviewPost') }}</button>
     </template>
   </div>
   <div class="review_list">
@@ -26,14 +26,14 @@
           <p class="review">{{ review.attributes.content }}</p>
           <p class="review_date">{{ formatDateHour(review.attributes.publishedAt) }}</p>
           <div class="btn_right" v-if="review.attributes.user.data.id === currentUser">
-            <button class="btn sub" @click="fnGetView(review.id)">수정</button>
-            <button class="btn sub" @click="fnDelete(review.id)">삭제</button>
+            <button class="btn sub" @click="fnGetView(review.id)">{{ $t('btnEdit') }}</button>
+            <button class="btn sub" @click="fnDelete(review.id)">{{ $t('btnDelete') }}</button>
           </div>
         </li>
       </ul>
     </template>
     <template v-else>
-      <p class="nodata">첫번째 리뷰를 남겨주세요.</p>
+      <p class="nodata">{{ $t('reviewGuide1') }}</p>
     </template>
   </div>
 </template>
@@ -41,6 +41,7 @@
 <script setup>
 import qs from "qs"
 
+const { t } = useI18n()
 const { formatDateHour } = useFormatDate() // 리뷰 작성 날짜시간 composables
 const { locale } = useI18n() // 다국어 Cookie Value
 // const {id} = useRoute().params // 라우터 params의 id
@@ -120,7 +121,7 @@ const fnReviewPost = async () => {
       })
       if (!response.ok) { // 응답 상태가 성공적이지 않을 때
         if (response.error === 'already review') { // strapi controllers의 error 메시지 비교
-          alert('리뷰는 한 영화에 한번만 작성 가능합니다.') // 중복체크 에러 메시지가 동일 할때 alert
+          alert(t('reviewGuide2')) // 중복체크 에러 메시지가 동일 할때 alert
         }
       }
       reviewInput.value = '' // 리뷰 작성 시 textarea 초기화
@@ -131,13 +132,13 @@ const fnReviewPost = async () => {
       alert(error); // 에러 메시지를 alert로 출력
     }
   } else {
-    alert('감상평을 등록해주세요.')
+    alert(t('reviewGuide3'))
   }
 }
 
 // 리뷰 삭제
 const fnDelete = async (id) => {
-  if(confirm('삭제하시겠습니까?')) { 
+  if(confirm(t('reviewGuide4'))) { 
     await $fetch(`${apiURL}/api/reviews/${id}`, {
       method: 'DELETE',
       headers: {
@@ -183,7 +184,7 @@ const fnReviewPut = async () => {
   ratingKey.value += 1 // star rating 키 값으로 새로고침
   isEdit.value = false // 버튼 리뷰 작성으로 변경
   refresh()  // 리뷰 작성 후 리뷰 영역 새로고침하여 리뷰 데이터 다시 불러오기
-  alert('리뷰가 수정되었습니다.')
+  alert(t('reviewGuide5'))
 }
 
 // star rating 점수 적용

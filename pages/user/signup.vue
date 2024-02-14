@@ -1,36 +1,36 @@
 <template>
   <div class="login">
     <template v-if="loginStore.isSignup"> <!-- loginStore - isSignup true 일 시 회원가입 폼 노출 -->
-      <h2 class="sub_title">회원가입</h2>
+      <h2 class="sub_title">{{ $t('signUpText') }}</h2>
       <form @submit.prevent="submitSignup({name, email, password})">
         <p :class="{ invalid : invalidName }">
-          <input v-model="name" type="text" id="userName" placeholder="이름" ref="nameInput" @blur="validateName" />
-          <label for="userName"><span>이름</span></label>
+          <input v-model="name" type="text" id="userName" :placeholder="$t('nameText')" ref="nameInput" @blur="validateName" />
+          <label for="userName"><span>{{ $t('nameText') }}</span></label>
         </p>
         <p v-if="invalidName" class="validate_info"> <!-- 정규식 이름 입력 없을 시 노출  -->
-          이름을 2글자 이상 12글자 이하로 입력해 주세요.
+          {{ $t('nameInvalid') }}
         </p>
         <p :class="{ invalid : invalidEmail }">
-          <input v-model="email" type="email" id="userEmail" placeholder="이메일" ref="emailInput" @blur="validateEmail" />
-          <label for="userEmail"><span>이메일</span></label>
+          <input v-model="email" type="email" id="userEmail" placeholder="$t('emailText')" ref="emailInput" @blur="validateEmail" />
+          <label for="userEmail"><span>{{ $t('emailText') }}</span></label>
         </p>
         <p v-if="invalidEmail" class="validate_info"> <!-- 정규식 이메일 조건 미달 시 노출  -->
-          이메일 형식에 맞게 입력하세요.
+          {{ $t('emailInvalid') }}
         </p>
         <p :class="{ invalid : invalidPassword }">
-          <input v-model="password" type="password" id="userPassword" placeholder="비밀번호" ref="passwordInput" @blur="validatePassword" autoComplete="off" />
-          <label for="userPassword"><span>비밀번호</span></label>
+          <input v-model="password" type="password" id="userPassword" placeholder="$t('passwordText')" ref="passwordInput" @blur="validatePassword" autoComplete="off" />
+          <label for="userPassword"><span>{{ $t('passwordText') }}</span></label>
         </p>
         <p v-if="invalidPassword" class="validate_info"> <!-- 정규식 패스워드 조건 미달 시 노출  -->
-          6~12자 영문 숫자를 사용하세요.
+          {{ $t('passwordInvalid') }}
         </p>
-        <button class="btn primary" @click="submit" :disabled="disableButton">회원가입</button>
+        <button class="btn primary" @click="submit" :disabled="disableButton">{{ $t('signUpText') }}</button>
       </form>
     </template>
     <template v-else> <!-- loginStore - isSignup false, 회원가입 완료 일 시 노출 -->
       <div class="success">
-        <p><strong class="name">{{ loginStore.userInfo.username }}님</strong> 회원가입을 환영합니다. <span>로그인 후 이용해주세요.</span></p>
-        <button class="btn primary" @click="$router.push('/user/login')">로그인으로 이동</button>
+        <p><strong class="name">{{ loginStore.userInfo.username }}{{ $t('signUpWelcome1') }}</strong> {{ $t('signUpWelcome2') }} <span>{{ $t('signUpWelcome3') }}</span></p>
+        <button class="btn primary" @click="$router.push({ path: localePath('/user/login') })">{{ $t('btnGotoLogin') }}</button>
       </div>
     </template>
   </div>
@@ -39,6 +39,8 @@
 <script setup>
 import { useLoginStore } from '@/stores/login' // login.js 에서 useLoginStore 함수 import
 const loginStore = useLoginStore() // useLoginStore 함수 호출
+const { t } = useI18n()
+const localePath = useLocalePath() // 다국어 적용 링크
 const name = ref('') // 입력 된 이름 데이터
 const email = ref('') // 입력 된 이메일 데이터
 const password = ref('') // 입력 된 패스워드 데이터
@@ -90,9 +92,9 @@ onMounted(() => {
 })
 
 useHead({
-  title: '회원가입 | MovieRevue',
+  title: `${t('signUpText')} | MovieRevue`,
   meta: [
-    { name: 'description', content: 'Movies 회원가입' }
+    { name: 'description', content: `Movies ${t('signUpText')}` }
   ]
 })
 </script>

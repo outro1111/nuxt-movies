@@ -22,7 +22,12 @@ export default defineNuxtConfig({
     }
   },
   i18n: {
-    locales: ['ko', 'en'],
+    locales: [
+      { code: 'ko', file: 'ko.js' },
+      { code: 'en', file: 'en.js' },
+    ],
+    lazy: true,
+    langDir: 'lang',
     defaultLocale: 'ko',
   }, 
 })

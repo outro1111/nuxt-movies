@@ -2,7 +2,8 @@
   <template v-if="queryTitle && movies.length > 0">
     <h2 class="sub_title">Movies</h2>
   <div class="search_result">
-    <strong>&lsquo;{{ queryTitle }}&rsquo;</strong>에 대한 검색 결과가 <strong>&lsquo;{{ movies.length }}&rsquo;</strong>개 있습니다.
+    <strong>&lsquo;{{ queryTitle }}&rsquo;</strong> {{ $t('movieResultGuide1') }} 
+    <strong>&lsquo;{{ movies.length }}&rsquo;</strong> {{ $t('movieResultGuide2') }}
   </div>
   </template>
   <template v-else>
@@ -15,6 +16,7 @@
 // useFetch
 import qs from "qs"
 
+const { t } = useI18n()
 const { locale } = useI18n() // 다국어 Cookie Value
 const route = useRoute()
 const queryTitle = ref(route.query.title) // url 쿼리 title
@@ -55,9 +57,9 @@ watch(() => route.query.title, () => {
 })
 
 useHead({
-  title: '영화 리스트 | MovieRevue',
+  title: `${t('movieListText')} | MovieRevue`,
   meta: [
-    { name: 'description', content: 'MovieRevue 영화 리스트' }
+    { name: 'description', content: `movieListText ${t('loginText')}` }
   ]
 })
 </script>
