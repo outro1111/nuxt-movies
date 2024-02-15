@@ -47,9 +47,6 @@ export const useLoginStore = defineStore('loginStore', () => {
       })
       const tokenJwt = ref(res.jwt) // 받아온 데이터 중 accessToken을 token에 할당
       const userInfo = ref(res.user) // 받아온 데이터 중 회원 정보를 userId에 할당
-      const router = useRouter()
-      const localePath = useLocalePath() // 다국어 적용 링크
-      
       accessToken.value = tokenJwt.value
       accessUser.value = userInfo.value
       // localStorage.setItem("access_token", token) // access_token 이라는 이름 설정 후 toke을 로컬스토리지에 저장
@@ -57,12 +54,14 @@ export const useLoginStore = defineStore('loginStore', () => {
       userInfo.value = res.user // 유저정보 (이름, 이메일) userInfo에 할당
       isLogin.value = true // 로그인 상태 true
       isLoginError.value = false // 로그인 에러 상태  false
-      if(isSignup.value) { // 회원가입 직 후 상태가 아니면 true
+      const router = useRouter()
+      const localePath = useLocalePath() // 다국어 적용 링크
+      if(isSignup.value === true) { // 회원가입 직 후 상태가 아니면 true
         router.back() // 로그인 후 이전 컴퍼넌트로 이동
-      } else { // 회원가입 직 후 상태라면 true
+      } else { // 회원가입 직 후 상태라면 false
         router.push({ path: localePath('/') }) // 홈으로 이동
+        isSignup.value = true // 회원가입 상태 초기화
       }
-      isSignup.value = true // 회원가입 상태 초기화
     } catch(error) {
       isLogin.value = false // 이메일, 패스워드가 틀릴 시 로그인 상태 false
       isLoginError.value = true // 이메일, 패스워드가 틀릴 시 오류 메시지 노출
