@@ -12,13 +12,14 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/color-mode": "^3.3.2",
     "@nuxtjs/i18n": "^8.0.0",
-    "@nuxtjs/strapi": "^1.9.3",
     "nuxt": "^3.7.0"
   },
   "dependencies": {
+    "@nuxtjs/strapi": "^1.11.0",
     "@pinia/nuxt": "^0.5.1",
     "nuxt-rating": "^0.0.15",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "vue-awesome-paginate": "^1.1.46"
   },
   "overrides": {
     "vue": "latest"

@@ -30,9 +30,6 @@ export const useLoginStore = defineStore('loginStore', () => {
     }
   }
 
-  // const expires = 60 * 60 * 24 * 7 // 7일간 유지 
-  // const accessToken = ref(useCookie('accessToken', { maxAge: expires }))
-  // const accessUser = ref(useCookie('accessUser', { maxAge: expires }))
   const accessToken = ref(useCookie('accessToken'))
   const accessUser = ref(useCookie('accessUser'))
   const login = async (loginObj) => {
@@ -43,14 +40,13 @@ export const useLoginStore = defineStore('loginStore', () => {
         body: JSON.stringify({
           "identifier": loginObj.email,
           "password": loginObj.password
-        })
+        }),
+        keepAlive: true // 메시지 채널 유지
       })
       const tokenJwt = ref(res.jwt) // 받아온 데이터 중 accessToken을 token에 할당
       const userInfo = ref(res.user) // 받아온 데이터 중 회원 정보를 userId에 할당
       accessToken.value = tokenJwt.value
       accessUser.value = userInfo.value
-      // localStorage.setItem("access_token", token) // access_token 이라는 이름 설정 후 toke을 로컬스토리지에 저장
-      // localStorage.setItem("access_id", userId)
       userInfo.value = res.user // 유저정보 (이름, 이메일) userInfo에 할당
       isLogin.value = true // 로그인 상태 true
       isLoginError.value = false // 로그인 에러 상태  false
