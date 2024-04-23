@@ -107,9 +107,9 @@ const fnReviewPost = async () => {
     try {
       const response = await $fetch(`${apiURL}/api/reviews`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
-        },
+        //headers: {
+        //  'Authorization': `Bearer ${userToken}` // 토큰을 headers에 담아 전달
+        //},
         body: JSON.stringify({
           "data": {
             "movie": movieId.value,
