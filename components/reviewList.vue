@@ -119,7 +119,7 @@ const fnReviewPost = async () => {
           }
         })
       })
-      console.log('에러', response, userToken);
+      console.log('에러', response, currentUser.value);
       if (!response.ok) { // 응답 상태가 성공적이지 않을 때
         if (response.error === 'already review') { // strapi controllers의 error 메시지 비교
           alert(t('reviewGuide2')) // 중복체크 에러 메시지가 동일 할때 alert
